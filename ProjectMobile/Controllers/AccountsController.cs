@@ -26,11 +26,9 @@ namespace ProjectMobile.Controllers
         }
         [AllowAnonymous]
         [HttpPost("/api/login")]
-        public ActionResult CheckLogin(string accountID, string password)
+        public ActionResult CheckLogin(Account account)
         {
-            System.Diagnostics.Debug.WriteLine("asdasd" + accountID);
-            System.Diagnostics.Debug.WriteLine(password);
-            var result = _accRepo.CheckLogin(accountID, password);
+            var result = _accRepo.CheckLogin(account.AccountId, account.Password);
             if (result != null)
             {
                 return Ok(result);
