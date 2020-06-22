@@ -22,9 +22,12 @@ namespace ProjectMobile
 
         // GET: api/Scenes
         [HttpGet]
-        public IEnumerable<Scene> GetScene()
+        public async Task<IEnumerable<Scene>> GetSceneAsync()
         {
-            return _context.Scene;
+            return await _context.Scene
+                .Include(scene=> scene.SceneActor)
+                .Include(scene=> scene.SceneTool)
+                .ToListAsync();
         }
 
         // GET: api/Scenes/5

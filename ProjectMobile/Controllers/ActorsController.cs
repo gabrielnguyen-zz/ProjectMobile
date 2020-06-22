@@ -23,9 +23,12 @@ namespace ProjectMobile.Controllers
 
         // GET: api/Actors
         [HttpGet]
-        public IEnumerable<Actor> GetActor()
+        public async Task<IEnumerable<Actor>> GetActorAsync()
         {
-            return _context.Actor;
+            return await _context.Actor
+                .Include(actor=>actor.Account)
+                .Include(actor=>actor.SceneActor)
+                .ToListAsync();
         }
 
         // GET: api/Actors/5
