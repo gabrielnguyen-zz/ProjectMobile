@@ -34,6 +34,9 @@ namespace ProjectMobile
                 opt.UseSqlServer(
                     Configuration.GetConnectionString("ProjectMobileContext"));
             });
+            services.AddMvc().AddJsonOptions(options => {
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
