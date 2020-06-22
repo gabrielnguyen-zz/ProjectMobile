@@ -7,8 +7,10 @@ namespace ProjectMobile.Models
     {
         public int SceneId { get; set; }
         public int ActorId { get; set; }
+        public string Character { get; set; }
         public string ActFrom { get; set; }
         public string ActTo { get; set; }
+        public string Status { get; set; }
 
         public Actor Actor { get; set; }
         public Scene Scene { get; set; }

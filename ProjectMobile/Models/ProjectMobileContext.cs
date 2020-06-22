@@ -63,13 +63,11 @@ namespace ProjectMobile.Models
 
                 entity.Property(e => e.ActorDes)
                     .HasColumnName("actorDes")
-                    .HasMaxLength(256)
-                    .IsUnicode(false);
+                    .HasMaxLength(256);
 
                 entity.Property(e => e.ActorName)
                     .HasColumnName("actorName")
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.CreatedBy)
                     .HasColumnName("createdBy")
@@ -88,8 +86,7 @@ namespace ProjectMobile.Models
 
                 entity.Property(e => e.Image)
                     .HasColumnName("image")
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.Phone)
                     .HasColumnName("phone")
@@ -118,23 +115,19 @@ namespace ProjectMobile.Models
 
                 entity.Property(e => e.SceneActors)
                     .HasColumnName("sceneActors")
-                    .HasMaxLength(256)
-                    .IsUnicode(false);
+                    .HasMaxLength(256);
 
                 entity.Property(e => e.SceneDes)
                     .HasColumnName("sceneDes")
-                    .HasMaxLength(256)
-                    .IsUnicode(false);
+                    .HasMaxLength(256);
 
                 entity.Property(e => e.SceneLoc)
                     .HasColumnName("sceneLoc")
-                    .HasMaxLength(256)
-                    .IsUnicode(false);
+                    .HasMaxLength(256);
 
                 entity.Property(e => e.SceneName)
                     .HasColumnName("sceneName")
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.SceneRec).HasColumnName("sceneRec");
 
@@ -149,11 +142,15 @@ namespace ProjectMobile.Models
 
             modelBuilder.Entity<SceneActor>(entity =>
             {
-                entity.HasKey(e => new { e.SceneId, e.ActorId });
+                entity.HasKey(e => new { e.SceneId, e.ActorId, e.Character });
 
                 entity.Property(e => e.SceneId).HasColumnName("sceneID");
 
                 entity.Property(e => e.ActorId).HasColumnName("actorID");
+
+                entity.Property(e => e.Character)
+                    .HasColumnName("character")
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.ActFrom)
                     .IsRequired()
@@ -166,6 +163,12 @@ namespace ProjectMobile.Models
                     .HasColumnName("actTo")
                     .HasMaxLength(50)
                     .IsUnicode(false);
+
+                entity.Property(e => e.Status)
+                    .IsRequired()
+                    .HasColumnName("status")
+                    .HasMaxLength(50)
+                    .HasDefaultValueSql("(N'Waiting')");
 
                 entity.HasOne(d => d.Actor)
                     .WithMany(p => p.SceneActor)
@@ -231,8 +234,7 @@ namespace ProjectMobile.Models
 
                 entity.Property(e => e.Image)
                     .HasColumnName("image")
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.Quantity).HasColumnName("quantity");
 
@@ -240,13 +242,11 @@ namespace ProjectMobile.Models
 
                 entity.Property(e => e.ToolDes)
                     .HasColumnName("toolDes")
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.ToolName)
                     .HasColumnName("toolName")
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.UpdatedBy)
                     .HasColumnName("updatedBy")
