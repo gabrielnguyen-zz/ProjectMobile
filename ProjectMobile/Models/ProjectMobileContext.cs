@@ -18,17 +18,16 @@ namespace ProjectMobile.Models
         public virtual DbSet<Account> Account { get; set; }
         public virtual DbSet<Actor> Actor { get; set; }
         public virtual DbSet<Scene> Scene { get; set; }
+        public virtual DbSet<SceneActor> SceneActor { get; set; }
+        public virtual DbSet<SceneTool> SceneTool { get; set; }
         public virtual DbSet<Tool> Tool { get; set; }
-
-        // Unable to generate entity type for table 'dbo.SceneActor'. Please see the warning messages.
-        // Unable to generate entity type for table 'dbo.SceneTool'. Please see the warning messages.
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=DESKTOP-54D0I6M;Database=ProjectMobile;uid=sa;password=123456");
+                optionsBuilder.UseSqlServer("Server=pnlreporter.database.windows.net;Database=ProjectMobile;uid=swdpnl;password=PhucDepTrai2020");
             }
         }
 
@@ -106,6 +105,11 @@ namespace ProjectMobile.Models
                     .HasColumnName("updatedTime")
                     .HasColumnType("date")
                     .HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.Account)
+                    .WithMany(p => p.Actor)
+                    .HasForeignKey(d => d.AccountId)
+                    .HasConstraintName("FK_Actor_Account");
             });
 
             modelBuilder.Entity<Scene>(entity =>
@@ -143,11 +147,77 @@ namespace ProjectMobile.Models
                     .HasColumnType("date");
             });
 
+            modelBuilder.Entity<SceneActor>(entity =>
+            {
+                entity.HasKey(e => new { e.SceneId, e.ActorId });
+
+                entity.Property(e => e.SceneId).HasColumnName("sceneID");
+
+                entity.Property(e => e.ActorId).HasColumnName("actorID");
+
+                entity.Property(e => e.ActFrom)
+                    .IsRequired()
+                    .HasColumnName("actFrom")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ActTo)
+                    .IsRequired()
+                    .HasColumnName("actTo")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.Actor)
+                    .WithMany(p => p.SceneActor)
+                    .HasForeignKey(d => d.ActorId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SceneActor_Actor");
+
+                entity.HasOne(d => d.Scene)
+                    .WithMany(p => p.SceneActor)
+                    .HasForeignKey(d => d.SceneId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SceneActor_Scene");
+            });
+
+            modelBuilder.Entity<SceneTool>(entity =>
+            {
+                entity.HasKey(e => new { e.SceneId, e.ToolId });
+
+                entity.Property(e => e.SceneId).HasColumnName("sceneID");
+
+                entity.Property(e => e.ToolId).HasColumnName("toolID");
+
+                entity.Property(e => e.Quantity)
+                    .HasColumnName("quantity")
+                    .HasMaxLength(10);
+
+                entity.Property(e => e.ToolFrom)
+                    .HasColumnName("toolFrom")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ToolTo)
+                    .HasColumnName("toolTo")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.Scene)
+                    .WithMany(p => p.SceneTool)
+                    .HasForeignKey(d => d.SceneId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SceneTool_Scene");
+
+                entity.HasOne(d => d.Tool)
+                    .WithMany(p => p.SceneTool)
+                    .HasForeignKey(d => d.ToolId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SceneTool_Tool");
+            });
+
             modelBuilder.Entity<Tool>(entity =>
             {
-                entity.Property(e => e.ToolId)
-                    .HasColumnName("toolID")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.ToolId).HasColumnName("toolID");
 
                 entity.Property(e => e.CreatedBy)
                     .HasColumnName("createdBy")

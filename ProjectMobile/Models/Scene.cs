@@ -5,6 +5,12 @@ namespace ProjectMobile.Models
 {
     public partial class Scene
     {
+        public Scene()
+        {
+            SceneActor = new HashSet<SceneActor>();
+            SceneTool = new HashSet<SceneTool>();
+        }
+
         public int SceneId { get; set; }
         public string SceneName { get; set; }
         public string SceneDes { get; set; }
@@ -13,5 +19,8 @@ namespace ProjectMobile.Models
         public DateTime? SceneTimeStop { get; set; }
         public int? SceneRec { get; set; }
         public string SceneActors { get; set; }
+
+        public ICollection<SceneActor> SceneActor { get; set; }
+        public ICollection<SceneTool> SceneTool { get; set; }
     }
 }

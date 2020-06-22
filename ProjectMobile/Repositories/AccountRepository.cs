@@ -21,7 +21,6 @@ namespace ProjectMobile.Repositories
             _context = context;
             _config = config;
         }
-
         public AccountVModel CheckLogin(string accountID,string password)
         {
             

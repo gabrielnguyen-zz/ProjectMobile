@@ -5,6 +5,11 @@ namespace ProjectMobile.Models
 {
     public partial class Tool
     {
+        public Tool()
+        {
+            SceneTool = new HashSet<SceneTool>();
+        }
+
         public int ToolId { get; set; }
         public string ToolName { get; set; }
         public string ToolDes { get; set; }
@@ -15,5 +20,7 @@ namespace ProjectMobile.Models
         public string CreatedBy { get; set; }
         public DateTime? UpdatedTime { get; set; }
         public string UpdatedBy { get; set; }
+
+        public ICollection<SceneTool> SceneTool { get; set; }
     }
 }
