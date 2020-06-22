@@ -112,6 +112,7 @@ namespace ProjectMobile.Controllers
             account.Password = actorvmodel.password;
             account.Role = "user";
             _context.Account.Add(account);
+            await _context.SaveChangesAsync();
             Actor actor = new Actor();
             actor.ActorName = actorvmodel.ActorName;
             actor.ActorDes = actorvmodel.ActorDes;
