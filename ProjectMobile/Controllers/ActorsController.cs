@@ -30,6 +30,20 @@ namespace ProjectMobile.Controllers
                 .Include(actor=>actor.SceneActor)
                 .ToListAsync();
         }
+        // GET: api/Actors/accountID/1
+        // /api/Actors/accountID/nguyen
+        [HttpGet("accountId/{id}")]
+        public async Task<IActionResult> GetActorByAccountId([FromBody] string id)
+        {
+            var actor = _context.Actor.Where(record => record.AccountId == id).FirstOrDefault();
+
+            if (actor == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(actor);
+        }
 
         // GET: api/Actors/5
         [HttpGet("{id}")]
@@ -96,6 +110,7 @@ namespace ProjectMobile.Controllers
             Account account = new Account();
             account.AccountId = actorvmodel.AccountId;
             account.Password = actorvmodel.password;
+            account.Role = "user";
             _context.Account.Add(account);
             Actor actor = new Actor();
             actor.ActorName = actorvmodel.ActorName;
