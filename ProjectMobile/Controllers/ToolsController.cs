@@ -22,9 +22,11 @@ namespace ProjectMobile.Controllers
 
         // GET: api/Tools
         [HttpGet]
-        public IEnumerable<Tool> GetTool()
+        public async Task<IEnumerable<Tool>> GetToolAsync()
         {
-            return _context.Tool;
+            return await _context.Tool
+                .Include(tool=> tool.SceneTool)
+                .ToListAsync();
         }
 
         // GET: api/Tools/5
