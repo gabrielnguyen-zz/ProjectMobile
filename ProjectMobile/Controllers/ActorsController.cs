@@ -33,10 +33,12 @@ namespace ProjectMobile.Controllers
         // GET: api/Actors/accountID/1
         // /api/Actors/accountID/nguyen
         [HttpGet("accountId/{id}")]
-        public async Task<IActionResult> GetActorByAccountId([FromBody] string id)
+        public async Task<IActionResult> GetActorByAccountId(string id)
         {
-            var actor = _context.Actor.Where(record => record.AccountId == id).FirstOrDefault();
-
+            var actor = _context.Actor
+                             .Include(i=> i.Account)
+                             .Include(i => i.SceneActor)
+                             .Where(record=>record.AccountId == id).FirstOrDefault();
             if (actor == null)
             {
                 return NotFound();
@@ -112,12 +114,12 @@ namespace ProjectMobile.Controllers
             account.Password = actorvmodel.password;
             account.Role = "user";
             _context.Account.Add(account);
-            await _context.SaveChangesAsync();
             Actor actor = new Actor();
             actor.ActorName = actorvmodel.ActorName;
             actor.ActorDes = actorvmodel.ActorDes;
             actor.Phone = actorvmodel.Phone;
             actor.Email = actorvmodel.Email;
+            actor.Image = actorvmodel.Image;
             actor.CreatedBy = actorvmodel.CreatedBy;
             actor.UpdatedBy = actorvmodel.UpdatedBy;
             actor.AccountId = actorvmodel.AccountId;
