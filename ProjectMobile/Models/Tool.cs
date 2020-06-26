@@ -20,6 +20,7 @@ namespace ProjectMobile.Models
         public string CreatedBy { get; set; }
         public DateTime? UpdatedTime { get; set; }
         public string UpdatedBy { get; set; }
+        public bool? IsDelete { get; set; }
 
         public ICollection<SceneTool> SceneTool { get; set; }
     }

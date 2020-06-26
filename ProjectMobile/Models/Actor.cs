@@ -21,6 +21,7 @@ namespace ProjectMobile.Models
         public DateTime? UpdatedTime { get; set; }
         public string UpdatedBy { get; set; }
         public string AccountId { get; set; }
+        public bool? IsDelete { get; set; }
 
         public Account Account { get; set; }
         public ICollection<SceneActor> SceneActor { get; set; }

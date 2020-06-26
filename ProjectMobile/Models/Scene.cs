@@ -19,6 +19,7 @@ namespace ProjectMobile.Models
         public DateTime? SceneTimeStop { get; set; }
         public int? SceneRec { get; set; }
         public string SceneActors { get; set; }
+        public bool? IsDelete { get; set; }
 
         public ICollection<SceneActor> SceneActor { get; set; }
         public ICollection<SceneTool> SceneTool { get; set; }

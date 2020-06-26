@@ -88,6 +88,8 @@ namespace ProjectMobile.Models
                     .HasColumnName("image")
                     .HasMaxLength(50);
 
+                entity.Property(e => e.IsDelete).HasColumnName("isDelete");
+
                 entity.Property(e => e.Phone)
                     .HasColumnName("phone")
                     .HasMaxLength(50)
@@ -112,6 +114,8 @@ namespace ProjectMobile.Models
             modelBuilder.Entity<Scene>(entity =>
             {
                 entity.Property(e => e.SceneId).HasColumnName("sceneID");
+
+                entity.Property(e => e.IsDelete).HasColumnName("isDelete");
 
                 entity.Property(e => e.SceneActors)
                     .HasColumnName("sceneActors")
@@ -235,6 +239,8 @@ namespace ProjectMobile.Models
                 entity.Property(e => e.Image)
                     .HasColumnName("image")
                     .HasMaxLength(50);
+
+                entity.Property(e => e.IsDelete).HasColumnName("isDelete");
 
                 entity.Property(e => e.Quantity).HasColumnName("quantity");
 
