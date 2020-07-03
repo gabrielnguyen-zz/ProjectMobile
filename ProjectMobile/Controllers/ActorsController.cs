@@ -123,6 +123,7 @@ namespace ProjectMobile.Controllers
             actor.CreatedBy = actorvmodel.CreatedBy;
             actor.UpdatedBy = actorvmodel.UpdatedBy;
             actor.AccountId = actorvmodel.AccountId;
+            actor.IsDelete = actorvmodel.IsDelete;
             _context.Actor.Add(actor);
             await _context.SaveChangesAsync();
             return CreatedAtAction("GetActor", new { id = actor.ActorId }, actor);
