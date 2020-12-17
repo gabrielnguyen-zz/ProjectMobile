@@ -35,3 +35,6 @@ steps:
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish artifacts: drop'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
